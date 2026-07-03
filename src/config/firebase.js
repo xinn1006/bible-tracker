@@ -235,4 +235,4 @@ export async function updateBibleChaptersBatch(userId, bookName, chapters, isRea
   };
   await setDoc(docRef, data);
   return data;
-}
+} 
