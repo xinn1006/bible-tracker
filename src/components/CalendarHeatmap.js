@@ -148,22 +148,21 @@ export class CalendarHeatmap {
     }
 
     // Generate Month Labels
-    const monthLabelsHTML = [];
+    // 每一週欄位對應產生一個 slot（可能是空的），跟下方 .heatmap-grid 的欄位一一對齊，
+    // 對齊完全交給 CSS flex + 共用的間距 token 處理，這裡不需要計算任何 pixel 位置。
     let prevMonth = -1;
     const months = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
 
-    columns.forEach((week, weekIdx) => {
-      // Pick Wednesday of the week to place month label
-      const midDay = week[6];
-      if (midDay.month !== prevMonth) {
-        monthLabelsHTML.push(`
-          <span class="month-label" style="left: ${weekIdx * 18 + 8}px;">
-            ${months[midDay.month]}
-          </span>
-        `);
-        prevMonth = midDay.month;
+    const monthSlotsHTML = columns.map((week) => {
+      // 用該週的第一天（週日）判斷月份，讓月份標籤對齊到該月第一次出現的那一週，
+      // 而不是等到週三才切換（避免標籤位置偏移、看起來像是晚了半週才換月）
+      const firstDay = week[5]; // 取週六的日期來判斷月份，避免週日是前一個月的最後一天
+      if (firstDay.month !== prevMonth) {
+        prevMonth = firstDay.month;
+        return `<div class="month-slot"><span>${months[firstDay.month]}</span></div>`;
       }
-    });
+      return `<div class="month-slot"></div>`;
+    }).join('');
 
     // Render Grid Cells
     const gridColumnsHTML = columns.map(week => {
@@ -220,7 +219,10 @@ export class CalendarHeatmap {
         
         <div class="heatmap-wrapper">
           <div class="heatmap-header-months">
-            ${monthLabelsHTML.join('')}
+            <div class="heatmap-months-spacer"></div>
+            <div class="heatmap-months-row">
+              ${monthSlotsHTML}
+            </div>
           </div>
           <div class="heatmap-body-container">
             <div class="heatmap-weekdays">
@@ -239,12 +241,10 @@ export class CalendarHeatmap {
         </div>
 
         <div class="heatmap-legend">
-          <span>少</span>
           <div class="legend-item"><div class="legend-box" style="background-color: var(--color-none)"></div><span>無紀錄</span></div>
           <div class="legend-item"><div class="legend-box" style="background-color: var(--color-bible)"></div><span>讀經</span></div>
           <div class="legend-item"><div class="legend-box" style="background-color: var(--color-book)"></div><span>書報</span></div>
           <div class="legend-item"><div class="legend-box" style="background-color: var(--color-both)"></div><span>雙追求</span></div>
-          <span>多</span>
         </div>
       </div>
     `;
