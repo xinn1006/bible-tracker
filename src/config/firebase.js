@@ -97,7 +97,7 @@ export async function updateUserProfile(userId, profileData) {
   await updateDoc(userRef, {
     name: profileData.name,
     avatar: profileData.avatar,
-    lastUpdatedAt: dayjs().format('YYYY-MM-DD HH:mm:ss')
+    lastUpdatedAt: new Date().toISOString()
   });
 
   return { id: userId, ...profileData };
