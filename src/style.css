@@ -263,6 +263,13 @@ body {
   margin-bottom: 24px;
 }
 
+/* 修正：grid 子項目預設 min-width 是 auto（跟著內容撐開），
+   若不歸零，內部橫向捲動的熱點圖會把整個 grid 欄位、甚至整個頁面撐爆，
+   在手機上尤其明顯（跑版、多出不該有的橫向捲軸）。 */
+.dashboard-middle>div {
+  min-width: 0;
+}
+
 @media (max-width: 1024px) {
   .dashboard-middle {
     grid-template-columns: 1fr;
@@ -274,6 +281,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
+  min-width: 0;
 }
 
 .panel-title {
@@ -525,6 +533,10 @@ body {
   grid-template-columns: 240px 1fr;
   gap: 24px;
   min-height: 400px;
+}
+
+.bible-layout>div {
+  min-width: 0;
 }
 
 @media (max-width: 768px) {
@@ -1045,36 +1057,4 @@ body {
   .chapters-grid {
     grid-template-columns: repeat(auto-fill, minmax(38px, 1fr));
   }
-}
-
-/* Testament Selection Styles */
-.testament-selector-group {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-top: 4px;
-}
-
-.testament-btn {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 6px;
-  padding: 8px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-align: center;
-}
-
-.testament-btn:hover {
-  background: rgba(0, 0, 0, 0.02);
-}
-
-.testament-btn.active {
-  background: rgba(16, 185, 129, 0.1);
-  border-color: var(--accent-color);
-  color: #047857;
-  font-weight: 600;
 }
