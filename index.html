@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>讀經與書報追求記錄系統</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="專為基督徒設計的每日讀經與書報追求記錄系統。讓同伴們能隨時彼此關心與追求。">
+  <meta name="keywords" content="讀經記錄, 書報追求, 聖經, 追求, 基督徒, 習慣追蹤">
+  <meta name="author" content="Antigravity">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="讀經與書報追求記錄系統">
+  <meta property="og:description" content="專為基督徒設計的每日讀經與書報追求記錄系統。">
+  <meta property="og:type" content="website">
+
+  <!-- Style Sheets -->
+  <link rel="stylesheet" href="./src/style.css">
+</head>
+
+<body>
+
+  <!-- Page Container -->
+  <div style="max-width: 1200px; margin: 0 auto;">
+
+    <!-- Top Header Bar -->
+    <header class="app-header">
+      <div class="app-title-container">
+        <h1>讀經與書報追求記錄系統</h1>
+        <p class="app-subtitle">「你的話是我腳前的燈，是我路上的光。」— 詩篇 119:105</p>
+      </div>
+
+      <div class="header-actions">
+        <!-- Auth Status and Trigger Area -->
+        <div id="auth-status-container" class="auth-status-container">
+          <button id="btn-login-trigger" class="btn btn-secondary"
+            style="padding: 6px 12px; font-size:12px;">登入追求</button>
+          <div id="auth-user-info" style="display:none; align-items:center; gap:8px;">
+            <span id="auth-user-badge" class="user-auth-badge"></span>
+            <button id="btn-auth-logout" class="btn btn-secondary"
+              style="padding: 4px 8px; font-size:11px; color: var(--danger-color); border-color: rgba(239, 68, 68, 0.2)">登出</button>
+          </div>
+        </div>
+
+        <!-- Database Connection Status Badge -->
+        <div id="db-status-badge" class="status-badge firebase">
+          <span
+            style="display:inline-block; width:8px; height:8px; border-radius:50%; background-color:#10b981;"></span>
+          連線中...
+        </div>
+      </div>
+    </header>
+
+    <!-- Top: User Avatars Row Selector Container -->
+    <main>
+      <section id="user-selector-root" class="user-selector-container">
+        <!-- UserSelector component renders here -->
+      </section>
+
+      <!-- Middle: Heatmap & Quick Record Form -->
+      <section class="dashboard-middle">
+        <div id="calendar-heatmap-root">
+          <!-- CalendarHeatmap component renders here -->
+        </div>
+        <div id="quick-record-form-root">
+          <!-- QuickRecordForm component renders here -->
+        </div>
+      </section>
+
+      <!-- Bottom: Bible 66 Books Grid Board -->
+      <section id="bible-grid-view-root">
+        <!-- BibleGridView component renders here -->
+      </section>
+    </main>
+
+  </div>
+
+  <!-- Auth Modal Overlay -->
+  <div id="auth-modal-overlay" class="modal-overlay">
+    <div class="modal-card" style="width: 380px;">
+      <div class="modal-header">
+        <h3>身分驗證登入</h3>
+        <button id="auth-modal-close-btn" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body" style="display:flex; flex-direction:column; gap:12px; padding: 20px;">
+        <button id="btn-google-login" class="btn btn-primary"
+          style="display:flex; justify-content:center; align-items:center; gap:8px; padding: 12px; font-weight:600;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+              fill="#4285F4" />
+            <path
+              d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+              fill="#34A853" />
+            <path
+              d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
+              fill="#FBBC05" />
+            <path
+              d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+              fill="#EA4335" />
+          </svg>
+          Google 帳號快速登入
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Entry Script (ES Module) -->
+  <script type="module" src="./src/App.js?v=3"></script>
+</body>
+
+</html>
