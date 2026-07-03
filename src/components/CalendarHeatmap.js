@@ -154,10 +154,10 @@ export class CalendarHeatmap {
 
     columns.forEach((week, weekIdx) => {
       // Pick Wednesday of the week to place month label
-      const midDay = week[3];
+      const midDay = week[6];
       if (midDay.month !== prevMonth) {
         monthLabelsHTML.push(`
-          <span class="month-label" style="left: ${weekIdx * 18 + 32}px;">
+          <span class="month-label" style="left: ${weekIdx * 18 + 8}px;">
             ${months[midDay.month]}
           </span>
         `);
